@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">  
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Game</title>
+    <link rel="myJavaScript" href="C:\myJavaScript\Game\whenTheButtonIsClicked.js"><link>
+    <link rel="css" href="C:\myJavaScript\Game\game.css"><link>
+    <style>
+        body {
+            background-image: url('C:/myJavaScript/Game/Craps-Gaming-Table-2.jpg'); 
+            background-size: 1000px; 
+            background-position: center; 
+            background-repeat: no-repeat; 
+            color: rgb(246, 4, 4);
+            font-family: Georgia, 'Times New Roman', Times, serif;             /* Specifies a prioritized list of font family */
+            text-align: center;
+            margin-top: 50px;
+        }
+        img {
+            width: 150px; 
+            height: auto; 
+            }
+
+        button {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            align-items: center;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+    </style>
+    <script>
+        function rollDice() {
+            return Math.floor(Math.random() * 6) + 1;
+        }
+
+        function playCraps() {
+            let dice1 = rollDice();
+            let dice2 = rollDice();
+            let sum = dice1 + dice2;
+            let result = `You rolled a ${dice1} and a ${dice2} for a total of ${sum}. `;
+
+            if (sum === 7 || sum === 11) {
+                result += "You win!";
+            } else if (sum === 2 || sum === 3 || sum === 12) {
+                result += "Craps! You lose.";
+            } else {
+                let point = sum;
+                result += `Your point is ${point}. Rolling again...<br>`;
+
+                let newSum;
+                do {
+                    dice1 = rollDice();
+                    dice2 = rollDice();
+                    newSum = dice1 + dice2;
+                    result += `You rolled a ${dice1} and a ${dice2} for a total of ${newSum}.<br>`;
+                } while (newSum !== 7 && newSum !== point);
+
+                if (newSum === point) {
+                    result += "You win!";
+                } else {
+                    result += "You lose.";
+                }
+            }
+            document.getElementById('result').innerHTML = result;
+        }
+    </script>
+</head>
+<body>
+    <h1>Snake Eyes</h1>
+    <h2><img id="dice" src="C:\myJavaScript\Game\rolling-dice_edited.jpg" alt="Rolling Dice">       
+    </h2><button onclick="playCraps()">ROLL DICE</button></h2>
+    <div id="result"></div>
+</body>
+</html>
